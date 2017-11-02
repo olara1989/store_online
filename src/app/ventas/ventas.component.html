@@ -1,3 +1,52 @@
-<p>
-  ventas works!
-</p>
+<div class="container">
+    <div class="col-xs-12 ">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                  <h4>Lista de ventas</h4>
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser"> 
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                 Filtro 1
+              </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser"> 
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                   Filtro 2
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser"> 
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                     Filtro 3
+                  </button>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>                
+                <tr *ngFor="let venta of ventas; let i = index">
+                  <td scope="row">{{venta.app}} {{venta.apm}} {{venta.nombre}}</td>
+                  <td>{{venta.direccion}}</td>
+                  <td>
+                    <a type="button" class="btn btn-info" data-toggle="modal" data-target="#uppdateUser" (click)="editventa(venta.id,i)"> 
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                    
+                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delUser" (click)="myValue = venta.id"> 
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+                      </a></td>
+                </tr>
+              </tbody>
+            </table>
+       
+    </div>
+   </div>
+ 
+  </div>
+ 
+
+  
+
+   

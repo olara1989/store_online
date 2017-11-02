@@ -1,3 +1,233 @@
-<p>
-  productos works!
-</p>
+<div class="container">
+    <div class="col-xs-12 ">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                  <h4>Lista de productos</h4>
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser"> 
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                 Nuevo producto
+              </button>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of productos; let i = index">
+                  <td scope="row">{{producto.app}} {{producto.apm}} {{producto.nombre}}</td>
+                  <td>{{producto.direccion}}</td>
+                  <td>
+                    <a type="button" class="btn btn-info" data-toggle="modal" data-target="#uppdateUser" (click)="editProducto(producto.id,i)"> 
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                    
+                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delUser" (click)="myValue = producto.id"> 
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+                      </a></td>
+                </tr>
+              </tbody>
+            </table>
+       
+    </div>
+   </div>
+ 
+  </div>
+  <div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog " role="document">
+       <form class="form-horizontal" (ngSubmit)="addProducto()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Nuevo productos</h4>
+          </div>
+          <div class="modal-body">           
+                    <div class="form-group">
+                      <label for="inputName" class="col-xs-2 control-label">Nombre: </label>
+                      <div class="col-xs-10">
+                        <input type="text" name="nombre" class="form-control" 
+                        id="inputName" placeholder="Nombre" required 
+                        [(ngModel)]="model.nombre" >
+                        
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputApellidoPat" class="col-xs-2 control-label">Apellido paterno: </label>
+                      <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputApellidoPat"
+                         placeholder="Apellido paterno" name="app" required 
+                         [(ngModel)]="model.app">                       
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputApellidoMat" class="col-xs-2 control-label">Apellido materno: </label>
+                        <div class="col-xs-10">
+                          <input type="text" class="form-control" id="inputApellidoMat"
+                           placeholder="Apellido materno" name="apm" required 
+                           [(ngModel)]="model.apm">                       
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label for="inputDireccion" class="col-xs-2 control-label">Dirección: </label>
+                        <div class="col-xs-10">
+                          <input type="text" name="direccion" class="form-control" id="inputDireccion" 
+                          placeholder="Dirección" required
+                          [(ngModel)]="model.direccion">  
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputTel" class="col-xs-2 control-label">Teléfono: </label>
+                        <div class="col-xs-10">
+                          <input type="tel" class="form-control" id="inputTel" 
+                          placeholder="Teléfono" name="tel" required
+                          [(ngModel)]="model.tel">  
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputMail" class="col-xs-2 control-label">Correo electrónico: </label>
+                        <div class="col-xs-10">
+                          <input type="email" class="form-control" id="inputMail" 
+                          placeholder="Correo" name="email" required
+                          [(ngModel)]="model.mail">  
+                        </div>
+                    </div>                  
+                    <div class="form-group">
+                      <label class="col-xs-2 control-label">Rol: </label>
+                      <div class="col-xs-10">
+                        <div class="radio">
+                          <label>
+                            <input type="radio"  name="rol" id="rol1" [value]="1" checked=""
+                            [(ngModel)]="model.rol">  
+                            Administrador
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="rol" id="rol2" [value]="2"
+                            [(ngModel)]="model.rol">
+                            Cajero
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" >Guardar</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+   <!-- Formulario de actualización -->
+   <div class="modal fade" id="uppdateUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog " role="document">
+       <form class="form-horizontal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modificar producto</h4>
+          </div>
+          <div class="modal-body">           
+                    <div class="form-group">
+                      <label for="inputName" class="col-xs-2 control-label">Nombre: </label>
+                      <div class="col-xs-10">
+                        <input type="text" name="nombre" class="form-control" 
+                        id="inputName" placeholder="Nombre" required 
+                        [(ngModel)]="model2.nombre" >
+                        
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputApellidoPat" class="col-xs-2 control-label">Apellido paterno: </label>
+                      <div class="col-xs-10">
+                        <input type="text" class="form-control" id="inputApellidoPat"
+                         placeholder="Apellido paterno" name="app" required 
+                         [(ngModel)]="model2.app">                       
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputApellidoMat" class="col-xs-2 control-label">Apellido materno: </label>
+                        <div class="col-xs-10">
+                          <input type="text" class="form-control" id="inputApellidoMat"
+                           placeholder="Apellido materno" name="apm" required 
+                           [(ngModel)]="model2.apm">                       
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label for="inputDireccion" class="col-xs-2 control-label">Dirección: </label>
+                        <div class="col-xs-10">
+                          <input type="text" name="direccion" class="form-control" id="inputDireccion" 
+                          placeholder="Dirección" required
+                          [(ngModel)]="model2.direccion">  
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputTel" class="col-xs-2 control-label">Teléfono: </label>
+                        <div class="col-xs-10">
+                          <input type="tel" class="form-control" id="inputTel" 
+                          placeholder="Teléfono" name="tel" required
+                          [(ngModel)]="model2.tel">  
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputMail" class="col-xs-2 control-label">Correo electrónico: </label>
+                        <div class="col-xs-10">
+                          <input type="email" class="form-control" id="inputMail" 
+                          placeholder="Correo" name="email" required
+                          [(ngModel)]="model2.mail">  
+                        </div>
+                    </div>                  
+                    <div class="form-group">
+                      <label class="col-xs-2 control-label">Rol: </label>
+                      <div class="col-xs-10">
+                        <div class="radio">
+                          <label>
+                            <input type="radio"  name="rol" id="rol1" [value]="1" checked=""
+                            [(ngModel)]="model2.rol">  
+                            Administrador
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="rol" id="rol2" [value]="2"
+                            [(ngModel)]="model2.rol">
+                            Cajero
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" (click)="updateProducto()">Guardar</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+
+    <div class="modal fade" id="delUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+         <form class="form-horizontal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h3 class="modal-title" id="myModalLabel">Eliminar producto</h3>
+            </div>
+            <div class="modal-body">
+              <h4>Omar Emmanuel Lara Juárez</h4>
+              </div>
+          
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" (click)="deleteProducto(myValue)"> Eliminar</button>
+            </div>
+          </div>
+        </form>
+      </div>    
+    </div>
